@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Omegle-like System</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+  #chatbox {
+    width: 300px;
+    height: 400px;
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    overflow-y: auto;
+  }
+
+  #input {
+    width: calc(100% - 40px);
+    padding: 5px;
+    margin-top: 10px;
+  }
+
+  #btnSend {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    background-color: #007bff;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+
+<div id="chatbox"></div>
+<input type="text" id="input" placeholder="Type your message...">
+<button id="btnSend">Send</button>
+
+<script>
+  const chatbox = document.getElementById('chatbox');
+  const input = document.getElementById('input');
+  const btnSend = document.getElementById('btnSend');
+
+  // Function to append a message to the chatbox
+  function appendMessage(message) {
+    const p = document.createElement('p');
+    p.textContent = message;
+    chatbox.appendChild(p);
+    chatbox.scrollTop = chatbox.scrollHeight; // Auto scroll to bottom
+  }
+
+  // Function to send a message
+  function sendMessage() {
+    const message = input.value.trim();
+    if (message !== '') {
+      appendMessage('You: ' + message);
+      input.value = ''; // Clear input field
+    }
+  }
+
+  // Event listener for send button click
+  btnSend.addEventListener('click', sendMessage);
+
+  // Simulate receiving messages from the other user
+  setInterval(() => {
+    const messages = ['Hello!', 'How are you?', 'Nice to meet you.', 'What do you like to do?'];
+    const randomIndex = Math.floor(Math.random() * messages.length);
+    const receivedMessage = messages[randomIndex];
+    appendMessage('Stranger: ' + receivedMessage);
+  }, 2000); // Simulate receiving a message every 2 seconds
+</script>
+
+</body>
+</html>
